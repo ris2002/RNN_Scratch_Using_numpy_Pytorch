@@ -34,3 +34,4 @@ This is the practice repo for doing RNN and Transformers from scratch for my  ba
      * X[t] feeds into the RNN at each time step
      * Y[t] is used to compute softmax cross-entropy loss
      * This encoding process is dataset-agnostic: works for any text dataset, short or long sequences, and can be extended to word-level embeddings.
+## Forward Layer Workings
