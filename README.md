@@ -1,5 +1,5 @@
 # RNN_And_Transformer_From_Scratch
-This is the practice repo for doing RNN and Transformers from scratch for my  basic intuition on the topics. For RNN, I have reffered this video by Dataquest(https://www.youtube.com/watch?v=4wuIOcD1LLI). I will also build RNN using vanilla RNN from pytorch on the same dataset. This project's quest is to understand the inner workings of RNN.
+This is the practice repo for doing RNN and Transformers from scratch for my  basic intuition on the topics. For RNN, I have built this from scratch with guidance and self-study. I will also build RNN using vanilla RNN from pytorch on the same dataset. This project's quest is to understand the inner workings of RNN.
 
 ## What is RNN and clear distinction from FFNN
 * A standard FFNN cannot understand a sequence of patterns(sentences). Many beginners will be surprised that it can't; many assume that patterns can be learnt using weights, so what's the problem?
