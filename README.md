@@ -35,6 +35,6 @@ This is the practice repo for doing RNN and Transformers from scratch for my  ba
      * Y[t] is used to compute softmax cross-entropy loss
      * This encoding process is dataset-agnostic: works for any text dataset, short or long sequences, and can be extended to word-level embeddings.
 ## Forward Layer Workings
-* In a regular NN, we have forward pass as Inputs-->Hidden_Layer_1-->Activation_Layer_1-->>Hidden_Layer_2-->Activation_Layer_2-->Hidden_Layer_3-->Softmax_Function-->Loss Function, and the equation of Hidden Layer is outputs=$/sum(w*x)+b$, where w is the weights of the number neurons present in the layer, x is the given input, b is the bias.
+* In a regular NN, we have forward pass as Inputs-->Hidden_Layer_1-->Activation_Layer_1-->>Hidden_Layer_2-->Activation_Layer_2-->Hidden_Layer_3-->Softmax_Function-->Loss Function, and the equation of Hidden Layer is $$outputs=/sum(w*x)+b$$, where w is the weights of the number neurons present in the layer, x is the given input, b is the bias.
 * In an RNN we pass a hidden state along with the input; the flow of the forward pass would be similar, but not the same and the equation used in RNN hidden layer would be:
-  outputs(h_t)=$/sum(W_xh*x)+sum(W_hh*h_t-1)b$
+  $$outputs(h_t)=/sum(W_xh*x)+sum(W_hh*h_t-1)+b$$
