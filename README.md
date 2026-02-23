@@ -36,7 +36,14 @@ This is the practice repo for doing RNN and Transformers from scratch for my  ba
      * This encoding process is dataset-agnostic: works for any text dataset, short or long sequences, and can be extended to word-level embeddings.
 ## Forward Layer Workings
 * In a regular NN, we have forward pass as Inputs-->Hidden_Layer_1-->Activation_Layer_1-->>Hidden_Layer_2-->Activation_Layer_2-->Hidden_Layer_3-->Softmax_Function-->Loss Function, and the equation of Hidden Layer is $$output = \sum(w \cdot x) + b$$, where w is the weights of the number neurons present in the layer, x is the given input, b is the bias.
-* In an RNN we pass a hidden state along with the input; the flow of the forward pass would be similar, but not the same and the equation used in RNN hidden layer would be:
-  $$outputs(h_t)=\sum(W_xh\cdot x_t)+\sum(W_hh\cdot h_t-1)+b$$
-* To explain RNN we shall take an example problem, A=['r','e','x'] and compare how a forward pass occurs in NN,[Considerr 
-        * In a standard FFNN, we start with input 'r', which goes through Hidde
+* In an RNN we pass a hidden state along with the input; the flow of the forward pass would be similar{Inputs-->Hidden_Layer_1-->tanh_Activation_Layer_1-->Hidden_Layer_2-->tanh_Activation_Layer_2-->Output_Layer-->Softmax_Function-->Loss }, but not the same and the equation used in RNN hidden layer would be:
+  $$outputs(h_t)=\sum(W_xh\cdot x_t)+\sum(W_hh\cdot h_{t-1})+b$$
+* To explain RNN we shall take an example problem, A=['r','e','x'] and compare how a forward pass occurs in NN,[Consider having 2 hidden layers in this example] 
+        * In a standard FFNN, we start with input 'r', which goes through Hidden Layer, then calculating the output using the equation  $$z = \sum(w \cdot x) + b$$, then this is passed through the activation function, then to the next layer and through the softmax function to get the prediction after that loss is calculated using the predicted value and the true value then the backprop pass starts and then the next input 'e' is put as an input. In this step, we can see that only the weights (w) mentioned in the equation [ $$z = \sum(w \cdot x) + b$$ ] are updated. 
+        * In RNN, at time_step=1, 'r' is put as input, when it first passes through hidden_layer 1 ($$h_0$$[a] as $$h_{t-1}$$) to compute $$h_1$$[a], then using tanh($$h_1$$[a])) , it finds $$h_1$$[b] inn second hidden layer, $$h_0$$[b] as the initial hidden state($$h_{t-1}$$).After this, it passes through the second tanh function, then to the output layer , then it computes softmax and the loss using the predictions from softmax function and the true values.
+        * In RNN, at time_step=2, 'e' is put as input, when it first passes through hidden_layer 1 ($$h_1$$[a] as $$h_{t-1}$$)to compute $$h_2$$[a], then using tanh($$h_2$$[a]) as input to next layer and $$h_1$$[b] as $$h_{t-1}$$, it finds $$h_2$$[b] in the second hidden layer.After this, it passes through the second tanh function, then to the output layer , then it computes softmax and the loss using the predictions from softmax function and the true values.
+        * In RNN, at time_step=3, 'x' is put as input, when it first passes through hidden_layer 1 ($$h_2$$[a] as $$h_{t-1}$$)to compute $$h_3$$[a], then using tanh($$h_3$$[a]) as input to next layer and $$h_2$$[b] as $$h_{t-1}$$, it finds $$h_3$$[b] in the second hidden layer.After this, it passes through the second tanh function, then to the output layer , then it computes softmax and the loss using the predictions from softmax function and the true values.
+     
+   
+   
+  
