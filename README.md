@@ -49,6 +49,6 @@ This is the practice repo for doing RNN and Transformers from scratch for my  ba
 * $$tanh$$ activation function values are bounded, i.e., from (-1 to 1), if we use Relu, i.e, Relu=max(0,x), it might result in exploding gradients which is not good for results.
 * $$sigmoid$$ also has  bounded values, i.e., from (0 to 1), but it is ot used as when both are differentiated, its max is less than that of $$tanh$$ and to avoid vanishing gradient problem.
 * $$tanh$$ derivative max = 1.0, $$sigmoid$$ derivative max = 0.25 
-   
+## Backwards Pass workings
    
   
