@@ -38,3 +38,5 @@ This is the practice repo for doing RNN and Transformers from scratch for my  ba
 * In a regular NN, we have forward pass as Inputs-->Hidden_Layer_1-->Activation_Layer_1-->>Hidden_Layer_2-->Activation_Layer_2-->Hidden_Layer_3-->Softmax_Function-->Loss Function, and the equation of Hidden Layer is $$output = \sum(w \cdot x) + b$$, where w is the weights of the number neurons present in the layer, x is the given input, b is the bias.
 * In an RNN we pass a hidden state along with the input; the flow of the forward pass would be similar, but not the same and the equation used in RNN hidden layer would be:
   $$outputs(h_t)=\sum(W_xh\cdot x_t)+\sum(W_hh\cdot h_t-1)+b$$
+* To explain RNN we shall take an example problem, A=['r','e','x'] and compare how a forward pass occurs in NN,[Considerr 
+        * In a standard FFNN, we start with input 'r', which goes through Hidde
