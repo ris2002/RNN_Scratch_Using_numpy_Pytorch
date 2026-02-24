@@ -49,6 +49,20 @@ This is the practice repo for doing RNN and Transformers from scratch for my  ba
 * $$tanh$$ activation function values are bounded, i.e., from (-1 to 1), if we use Relu, i.e, Relu=max(0,x), it might result in exploding gradients which is not good for results.
 * $$sigmoid$$ also has  bounded values, i.e., from (0 to 1), but it is ot used as when both are differentiated, its max is less than that of $$tanh$$ and to avoid vanishing gradient problem.
 * $$tanh$$ derivative max = 1.0, $$sigmoid$$ derivative max = 0.25 
-## Backwards Pass workings
+## Backwards Pass inner workings
+* Backward pass is all about gradients and chain rule and BPTT
+* As seen from the forward pass, the flow is : Inputs-->Hidden_Layer_1-->tanh_Activation_Layer_1-->Hidden_Layer_2-->tanh_Activation_Layer_2-->Output_Layer-->Softmax_Function-->Loss. Let Loss be L, Softmax_func be $$hat{y}$$,output_layer be $$o_t$$(at a period of time), let $$h_t$$ at a period of time be tanh($$z_t$$), let $$z_t$$ be the pre-activation layer.
+* In code we pass gradients from loss backwards through every layer until we reach the weights, but in theory, we try to find the rate of loss wrt to the  elements involved in eqn '$$z(h_t)=\sum(W_xh\cdot x_t)+\sum(W_hh\cdot h_{t-1})+b$$' and all the gradients passed (in code) are just pieces of puzzles to fill the chain rule.
+* The main thing we differentiate to the loss is $$W_xh$$,$$b$$,$$W_hh$$, this is because these are first initialized at random and using these gradients the optimizer gives the slightly correct over the epochs.
+ * $$\frac{\partial L}{\partial W_{xh}} = \frac{\partial L}{\partial \hat{y}_t} \cdot \frac{\partial \hat{y}_t}{\partial o_t} \cdot \frac{\partial o_t}{\partial h_t} \cdot \frac{\partial h_t}{\partial z_t} \cdot \frac{\partial z_t}{\partial W_{xh}}$$
+
+ * $$\frac{\partial L}{\partial W_{hh}} = \frac{\partial L}{\partial \hat{y}_t} \cdot \frac{\partial \hat{y}_t}{\partial o_t} \cdot \frac{\partial o_t}{\partial h_t} \cdot \frac{\partial h_t}{\partial z_t} \cdot \frac{\partial z_t}{\partial W_{hh}}$$+BPTT(From previous timestep
+
+ * $$\frac{\partial L}{\partial b} = \frac{\partial L}{\partial \hat{y}_t} \cdot \frac{\partial \hat{y}_t}{\partial o_t} \cdot \frac{\partial o_t}{\partial h_t} \cdot \frac{\partial h_t}{\partial z_t} \cdot \frac{\partial z_t}{\partial b}$$
+   
+* These will then be passed through the optimizer.
+* Now lets go the flow to the backward pass through time (BPTT)
+ * Along with  $$W_xh$$,$$b$$,$$W_hh$$,
+ *    
    
   
