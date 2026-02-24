@@ -56,7 +56,7 @@ This is the practice repo for doing RNN and Transformers from scratch for my  ba
 * The main thing we differentiate to the loss is $$W_xh$$,$$b$$,$$W_hh$$, this is because these are first initialized at random and using these gradients the optimizer gives the slightly correct over the epochs.
  * $$\frac{\partial L}{\partial W_{xh}} = \frac{\partial L}{\partial \hat{y}_t} \cdot \frac{\partial \hat{y}_t}{\partial o_t} \cdot \frac{\partial o_t}{\partial h_t} \cdot \frac{\partial h_t}{\partial z_t} \cdot \frac{\partial z_t}{\partial W_{xh}}$$
 
- * $$\frac{\partial L}{\partial W_{hh}} = \frac{\partial L}{\partial \hat{y}_t} \cdot \frac{\partial \hat{y}_t}{\partial o_t} \cdot \frac{\partial o_t}{\partial h_t} \cdot \frac{\partial h_t}{\partial z_t} \cdot \frac{\partial z_t}{\partial W_{hh}}$$+BPTT(From previous timestep
+ * $$\frac{\partial L}{\partial W_{hh}} = \frac{\partial L}{\partial \hat{y}_t} \cdot \frac{\partial \hat{y}_t}{\partial o_t} \cdot \frac{\partial o_t}{\partial h_t} \cdot \frac{\partial h_t}{\partial z_t} \cdot \frac{\partial z_t}{\partial W_{hh}}+BPTT$$(From previous timestep
 
  * $$\frac{\partial L}{\partial b} = \frac{\partial L}{\partial \hat{y}_t} \cdot \frac{\partial \hat{y}_t}{\partial o_t} \cdot \frac{\partial o_t}{\partial h_t} \cdot \frac{\partial h_t}{\partial z_t} \cdot \frac{\partial z_t}{\partial b}$$
    
