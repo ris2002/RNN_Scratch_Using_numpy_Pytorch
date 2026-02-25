@@ -62,8 +62,78 @@ This is the practice repo for doing RNN and Transformers from scratch for my  ba
  * $$\frac{\partial L}{\partial b} = \frac{\partial L}{\partial \hat{y}_t} \cdot \frac{\partial \hat{y}_t}{\partial o_t} \cdot \frac{\partial o_t}{\partial h_t} \cdot \frac{\partial h_t}{\partial z_t} \cdot \frac{\partial z_t}{\partial b}$$
    
 * These will then be passed through the optimizer.
-* Now lets go the flow to the backward pass through time (BPTT)
- * Along with  $$W_xh$$,$$b$$,$$W_hh$$, we also diffentiate $$h_{t-1} in $$z_t$$ this is also then passed back in the previous timestep.
+Here it is — ready to copy into your README:
+
+---
+
+## Backpropagation Through Time (BPTT)
+
+### What is BPTT?
+
+In a regular NN, backprop sends the error backwards through layers. In RNN, we do the same thing but also send the error backwards through time — from the last timestep to the first. At each timestep, the error has two sources — the mistake made at that timestep, and the error arriving from the future timestep. We add both together and use that to update the weights. This repeats from the last timestep all the way back to the first.
+
+---
+
+### All Derivatives
+
+$$\frac{\partial L}{\partial \hat{y}_t} = -\frac{y_t}{\hat{y}_t}$$
+
+$$\frac{\partial \hat{y}_t}{\partial o_t} = \hat{y}_t(1-\hat{y}_t)$$
+
+$$\frac{\partial o_t}{\partial W_{hy}} = h_t \quad \frac{\partial o_t}{\partial h_t} = W_{hy} \quad \frac{\partial o_t}{\partial b_y} = 1$$
+
+$$\frac{\partial h_t}{\partial z_t} = 1 - h_t^2$$
+
+$$\frac{\partial z_t}{\partial W_{xh}} = x_t \quad \frac{\partial z_t}{\partial W_{hh}} = h_{t-1} \quad \frac{\partial z_t}{\partial b} = 1 \quad \frac{\partial z_t}{\partial h_{t-1}} = W_{hh}$$
+
+---
+
+### Chain Rule Results
+
+$$\frac{\partial L}{\partial W_{hy}} = (\hat{y}_t - y_t) \cdot h_t$$
+
+$$\frac{\partial L}{\partial W_{xh}} = (\hat{y}_t - y_t) \cdot W_{hy} \cdot (1-h_t^2) \cdot x_t$$
+
+$$\frac{\partial L}{\partial W_{hh}} = (\hat{y}_t - y_t) \cdot W_{hy} \cdot (1-h_t^2) \cdot h_{t-1}$$
+
+$$\frac{\partial L}{\partial b} = (\hat{y}_t - y_t) \cdot W_{hy} \cdot (1-h_t^2)$$
+
+---
+
+### BPTT Equation
+
+This is the gradient passed backwards to the previous timestep:
+
+$$\frac{\partial L}{\partial h_{t-1}} = \frac{\partial L}{\partial \hat{y}_t} \cdot \frac{\partial \hat{y}_t}{\partial o_t} \cdot \frac{\partial o_t}{\partial h_t} \cdot \frac{\partial h_t}{\partial z_t} \cdot \frac{\partial z_t}{\partial h_{t-1}}$$
+
+$$= (\hat{y}_t - y_t) \cdot W_{hy} \cdot (1-h_t^2) \cdot W_{hh}$$
+
+This equation repeats at every timestep going backwards. $W_{hh}$ appears in it — and since it is multiplied at every timestep going back, that is exactly where vanishing gradients come from.
+
+---
+
+### Vanishing Gradients
+
+Every timestep the gradient gets multiplied by $(1-h_t^2)$ and $W_{hh}$. Since $(1-h_t^2)$ is always between 0 and 1:
+
+| Timestep | Gradient |
+|----------|----------|
+| t=10 | 1.0 |
+| t=7 | 0.064 |
+| t=4 | 0.004 |
+| t=1 | ~0.0001 |
+
+The gradient shrinks to almost zero before reaching early timesteps. The network forgets what happened at the beginning of the sequence. This is why LSTM was invented.
+
+---
+
+### Observed in Code
+
+During training, loss decreased initially then exploded after epoch 70 — confirming the exploding gradient problem. This happens because $W_{hh}$ is multiplied repeatedly across timesteps causing gradients to grow uncontrollably for certain weight values.
+
+---
+
+Copy this exactly into your README. Your BPTT section is now complete. 💪
    
    
   
