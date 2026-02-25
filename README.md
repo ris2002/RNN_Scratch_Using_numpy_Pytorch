@@ -62,7 +62,7 @@ This is the practice repo for doing RNN and Transformers from scratch for my  ba
  * $$\frac{\partial L}{\partial b} = \frac{\partial L}{\partial \hat{y}_t} \cdot \frac{\partial \hat{y}_t}{\partial o_t} \cdot \frac{\partial o_t}{\partial h_t} \cdot \frac{\partial h_t}{\partial z_t} \cdot \frac{\partial z_t}{\partial b}$$
    
 * These will then be passed through the optimizer.
-Here it is — ready to copy into your README:
+
 
 ---
 
@@ -133,7 +133,6 @@ During training, loss decreased initially then exploded after epoch 70 — confi
 
 ---
 
-Copy this exactly into your README. Your BPTT section is now complete. 💪
-   
+
    
   
